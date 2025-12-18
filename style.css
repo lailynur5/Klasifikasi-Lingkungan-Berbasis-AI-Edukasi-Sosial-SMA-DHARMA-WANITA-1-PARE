@@ -1,29 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+// --- LOGIKA LOGIN ---
+const loginForm = document.getElementById('login-form');
+const loginPage = document.getElementById('login-section');
+const mainPage = document.getElementById('main-section');
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    // Password '123' tersembunyi karena type="password" di HTML
+    if (user === "admin" && pass === "123") {
+        loginPage.classList.add('hidden');
+        mainPage.classList.remove('hidden');
+    } else {
+        document.getElementById('error-msg').classList.remove('hidden');
+    }
+});
+
+function logout() {
+    location.reload(); // Kembali ke halaman login
 }
 
-.loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #10b981;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-}
+// --- LOGIKA UPLOAD ---
+const uploadBox = document.getElementById('upload-box');
+const fileInput = document.getElementById('file-input');
+const preview = document.getElementById('preview');
+const placeholder = document.getElementById('placeholder');
+const btnScan = document.getElementById('btn-scan');
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+uploadBox.addEventListener('click', () => fileInput.click());
 
-.fade-in {
-    animation: fadeIn 0.8s ease-out;
-}
+fileInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+            btnScan.classList.remove('hidden');
+        }
+        reader.readAsDataURL(file);
+    }
+});
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+// --- LOGIKA SIMULASI AI ---
+function startAI() {
+    document.getElementById('empty').classList.add('hidden');
+    document.getElementById('result').classList.add('hidden');
+    document.getElementById('loading').classList.remove('hidden');
+    btnScan.disabled = true;
+
+    // Simulasi proses berpikir AI selama 2 detik
+    setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('result').classList.remove('hidden');
+        btnScan.disabled = false;
+
+        const results = [
+            { 
+                title: "Sampah Organik", 
+                icon: "🥬", 
+                edu: "Limbah sisa makanan dari kantin DW bisa diolah jadi kompos untuk taman sekolah!" 
+            },
+            { 
+                title: "Sampah Plastik", 
+                icon: "🥤", 
+                edu: "Hati-hati, plastik mencemari tanah Pare selama ratusan tahun. Mari gunakan botol minum sendiri!" 
+            },
+            { 
+                title: "Limbah Kertas", 
+                icon: "📄", 
+                edu: "Kertas bekas tugas bisa dikumpulkan untuk didaur ulang kembali menjadi kerajinan kreatif." 
+            }
+        ];
+
+        const randomRes = results[Math.floor(Math.random() * results.length)];
+
+        document.getElementById('res-title').innerText = randomRes.title;
+        document.getElementById('res-icon').innerText = randomRes.icon;
+        document.getElementById('res-edu').innerText = randomRes.edu;
+
+    }, 2000);
 }
