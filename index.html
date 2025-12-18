@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Smart AI | SMA DHARMA WANITA 1 PARE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50">
+
+    <section id="login-section" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md p-8 rounded-3xl shadow-2xl border border-slate-100">
+            <div class="text-center mb-8">
+                <div class="bg-emerald-600 text-white w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg rotate-3">
+                    <i class="fas fa-leaf text-3xl"></i>
+                </div>
+                <h1 class="text-2xl font-black text-slate-800">ECO-SMART AI</h1>
+                <p class="text-slate-500 text-sm">SMA DHARMA WANITA 1 PARE</p>
+            </div>
+            
+            <form id="login-form" class="space-y-4">
+                <input type="text" id="username" placeholder="Username (admin)" class="w-full p-4 bg-slate-50 border-none rounded-2xl outline-none focus:ring-2 focus:ring-emerald-500 transition" required>
+                <input type="password" id="password" placeholder="Password (123)" class="w-full p-4 bg-slate-50 border-none rounded-2xl outline-none focus:ring-2 focus:ring-emerald-500 transition" required>
+                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-4 rounded-2xl hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all active:scale-95">MASUK SISTEM</button>
+            </form>
+            <p id="error-msg" class="hidden text-red-500 text-xs mt-4 text-center font-bold italic">Akses Ditolak! Cek Username/Password.</p>
+        </div>
+    </section>
+
+    <section id="main-section" class="hidden min-h-screen pb-20">
+        <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 p-4 border-b border-slate-100">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="bg-emerald-600 text-white p-1.5 rounded-lg text-xs font-bold">DW</span>
+                    <span class="font-bold text-slate-800 tracking-tighter">ECO-SMART</span>
+                </div>
+                <button onclick="logout()" class="text-xs font-bold text-red-500 bg-red-50 px-4 py-2 rounded-xl">KELUAR</button>
+            </div>
+        </nav>
+
+        <div class="container mx-auto px-4 mt-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <div class="bg-white p-6 rounded-3xl shadow-xl shadow-slate-200/50">
+                    <h2 class="text-lg font-bold mb-4 text-slate-800"><i class="fas fa-camera-retro mr-2 text-emerald-600"></i>Ambil Foto Objek</h2>
+                    <div id="upload-box" class="relative border-4 border-dashed border-slate-100 rounded-3xl p-10 text-center hover:bg-emerald-50 transition cursor-pointer">
+                        <input type="file" id="file-input" class="hidden" accept="image/*">
+                        <div id="upload-placeholder">
+                            <i class="fas fa-cloud-arrow-up text-5xl text-emerald-200 mb-4"></i>
+                            <p class="text-sm font-medium text-slate-400">Ketuk untuk pilih gambar produk atau lingkungan</p>
+                        </div>
+                        <img id="image-preview" src="#" class="hidden w-full rounded-2xl shadow-lg">
+                    </div>
+                    <button id="scan-btn" onclick="processAI()" class="hidden mt-6 w-full bg-emerald-600 text-white font-bold py-4 rounded-2xl hover:bg-emerald-700 shadow-lg transition">MULAI ANALISIS AI</button>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-xl shadow-slate-200/50 flex flex-col items-center justify-center relative overflow-hidden">
+                    <div id="ai-idle" class="text-center">
+                        <i class="fas fa-robot text-6xl text-slate-100 mb-4"></i>
+                        <p class="text-slate-300 italic text-sm font-medium">Menunggu data diunggah...</p>
+                    </div>
+
+                    <div id="ai-loading" class="hidden text-center">
+                        <div class="loading-spinner mb-4"></div>
+                        <p class="text-emerald-600 font-bold animate-pulse">AI sedang berpikir...</p>
+                    </div>
+
+                    <div id="ai-result" class="hidden w-full text-center fade-in">
+                        <div id="res-icon" class="text-6xl mb-4 transform scale-110"></div>
+                        <h3 id="res-label" class="text-3xl font-black text-slate-800 uppercase"></h3>
+                        <div class="mt-6 bg-emerald-50 p-5 rounded-2xl border border-emerald-100">
+                            <h4 class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Edukasi Sosial:</h4>
+                            <p id="res-edu" class="text-slate-700 text-sm leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
